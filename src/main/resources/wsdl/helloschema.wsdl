@@ -1,0 +1,64 @@
+<wsdl:definitions xmlns:sch="http://www.flydubai.com/HelloSoap" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://www.flydubai.com/HelloSoap" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.flydubai.com/HelloSoap">
+    <wsdl:types>
+        <xsd:schema xmlns:SOAP-ENV="http://www.w3.org/2001/12/soap-envelope" xmlns:SOAP-ENV-encodingStyle="http://www.w3.org/2001/12/soap-encoding" xmlns:m="http://www.flydubai.com/HelloSoap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.flydubai.com/HelloSoap">
+            <xsd:element name="HelloSoap">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ClientName" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="HelloSoapResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Response" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="HelloSoapResponse">
+        <wsdl:part element="tns:HelloSoapResponse" name="HelloSoapResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="HelloSoap">
+        <wsdl:part element="tns:HelloSoap" name="HelloSoap"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="HelloSoapPortType">
+        <wsdl:operation name="Hello">
+            <wsdl:input message="tns:HelloSoap" name="HelloSoap"> </wsdl:input>
+            <wsdl:output message="tns:HelloSoapResponse" name="HelloSoapResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="HelloSoapPortTypeSoap12" type="tns:HelloSoapPortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Hello">
+            <soap12:operation soapAction=""/>
+            <wsdl:input name="HelloSoap">
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="HelloSoapResponse">
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="HelloSoapPortTypeSoap11" type="tns:HelloSoapPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Hello">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="HelloSoap">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="HelloSoapResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="HelloSoapPortTypeService">
+        <wsdl:port binding="tns:HelloSoapPortTypeSoap12" name="HelloSoapPortTypeSoap12">
+            <soap12:address location="http://localhost:8090/HelloSoapService"/>
+        </wsdl:port>
+        <wsdl:port binding="tns:HelloSoapPortTypeSoap11" name="HelloSoapPortTypeSoap11">
+            <soap:address location="http://localhost:8090/HelloSoapService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
